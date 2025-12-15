@@ -15,28 +15,58 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let currentVideoIndex = 1;
 
+    let preloadedVideoSrc = null;
+    function preloadNextVideo() {
+        // Déterminer l'index de la vidéo SUIVANTE
+        const nextIndex = (currentVideoIndex + 1) % playlist.length;
+        preloadedVideoSrc = playlist[nextIndex];
+
+        // 1. Créer un élément vidéo temporaire en mémoire
+        const tempVideo = document.createElement('video');
+        
+        // 2. Définir la source et les attributs de préchargement
+        tempVideo.src = preloadedVideoSrc;
+        tempVideo.setAttribute('preload', 'auto'); // Demander au navigateur de précharger
+        tempVideo.setAttribute('muted', ''); // Assurez-vous d'avoir 'muted'
+
+        // 3. Demander le chargement
+        tempVideo.load();
+        
+        console.log(`[Préchargement] Démarrage du préchargement de : ${preloadedVideoSrc}`);
+        
+        // Nous n'avons pas besoin d'ajouter tempVideo au DOM, il fait son travail en mémoire.
+    }
+    
     function playNextVideo() {
-        // Incrémenter l'index, puis revenir à 0 si c'est la fin du tableau
         currentVideoIndex = (currentVideoIndex + 1) % playlist.length;
         
         const nextVideoSrc = playlist[currentVideoIndex];
         
-        // Mettre à jour la source de la vidéo
-        // Note: Cette méthode simple utilise une seule source, la première dans le HTML. 
-        // Si vous utilisiez plusieurs types de fichiers (webm, mp4), ce serait plus complexe.
+        // 🔑 Utiliser la source qui a déjà été téléchargée (ou est en cours)
         video.src = nextVideoSrc; 
         
-        // Relancer la vidéo
         video.play().catch(error => {
-            // Gérer l'erreur si autoplay est bloqué (bien que 'muted' devrait aider)
             console.error("Erreur lors du lancement de la vidéo:", error);
         });
+
+        // 🔑 Immédiatement après avoir lancé la vidéo, on précharge la suivante
+        preloadNextVideo();
     }
 
-    // Événement déclenché lorsque la vidéo actuelle est terminée
-    video.addEventListener('ended', playNextVideo);
+    video.addEventListener('timeupdate', function() {
+        // Précharge la vidéo suivante quand la vidéo actuelle arrive à 80% de sa durée
+        if (video.currentTime >= video.duration * 0.8 && preloadedVideoSrc === null) {
+            preloadNextVideo();
+        }
+    });
 
-    // Démarrer la première vidéo au chargement (si l'autoplay ne le fait pas)
+    // Ancien événement 'ended' est désormais un simple déclencheur si 'timeupdate' échoue
+    video.addEventListener('ended', playNextVideo);
+    
+    // Démarrer la première vidéo et précharger la deuxième
     video.load();
     video.play();
+    
+    // 🔑 Précharger la deuxième vidéo dès que la première commence à jouer (ou est mise en cache)
+    preloadNextVideo(); 
 });

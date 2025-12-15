@@ -60,9 +60,9 @@
 @media screen and (max-width: 462px) {
   .grid {
     grid-template-columns: repeat(auto-fit, 150px);
-    grid-template-rows: 172.5px;
-    grid-auto-rows: 172.5px;
-    margin-bottom: 22.5px;
+    grid-template-rows: 300px;
+    grid-auto-rows: 300px;
+    margin-bottom: 90px;
   }
   .block {
     height: auto;

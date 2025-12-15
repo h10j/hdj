@@ -71,12 +71,10 @@ $grid-cell-height: ($block-size * 2) * 80 /100 + px;
 @media screen and (max-width: #{3 * $block-size - 1 + $scrollbar-size}px) {
 .grid {
         grid-template-columns: repeat(auto-fit, $block-size + px);
-        $new-height: $block-size * 1.15; 
-        grid-template-rows: $new-height + px;
-        grid-auto-rows: $new-height + px;
-        margin-bottom: $block-size * 0.15 + px; 
+		grid-template-rows: ($block-size * 2) + px;
+		grid-auto-rows: ($block-size * 2) + px;
+		margin-bottom: ($block-size * 2) * 30 /100 + px;
     }
-    
     .block {
         height: auto; 
         -webkit-clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
