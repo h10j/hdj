@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'icomoon';
+  font-family: "icomoon";
   src: url("../fonts/icomoon/icomoon.eot?srf3rx");
   src: url("../fonts/icomoon/icomoon.eot?srf3rx#iefix")
       format("embedded-opentype"),
@@ -252,7 +252,11 @@ h6 {
   padding-left: 0;
   text-transform: uppercase;
   letter-spacing: 3px;
-  font-size: clamp(1rem, 5vw, 24px); /* Minimum 16px (1rem), maximum 24px, s'adapte avec 5% de la largeur de l'écran */
+  font-size: clamp(
+    1rem,
+    5vw,
+    24px
+  ); /* Minimum 16px (1rem), maximum 24px, s'adapte avec 5% de la largeur de l'écran */
   color: #000;
 }
 /* Cibler spécifiquement la classe pour écraser les règles de bloc */
@@ -438,6 +442,7 @@ a.navbar-brand {
 @media screen and (max-width: 768px) {
   #fh5co-home .text-inner h1 .big {
     font-size: 30px;
+    line-height: 1.2;
   }
 }
 #fh5co-home .text-inner h1 .medium {
@@ -495,10 +500,14 @@ a.navbar-brand {
   }
 }
 #fh5co-home .text-inner .call-to-action a.download {
-  border: 15px solid #00adb5;
+  border: solid #00adb5;
   background: #00adb5;
-  text-decoration: none !important;
-  display: inline;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 50px;
+  height: auto;
+  width: auto;
+  white-space: normal;
 }
 @media screen and (max-width: 768px) {
   #fh5co-home .text-inner .call-to-action a.download {
@@ -1429,7 +1438,7 @@ a.navbar-brand {
 .container {
   max-width: 80%; /* Limite à 80% de la largeur de l'écran */
   margin: auto;
-    overflow: hidden;
+  overflow: hidden;
 }
 
 /* ########## Cartes d'avis ######### */
@@ -1705,34 +1714,33 @@ a.navbar-brand {
   margin: 15px auto;
 }
 
-
 /* ########## Logo premier paragraphe ######### */
 
 /* 1. Définition de l'animation de rotation */
 @keyframes rotation-initiale {
-    0% {
-        transform: rotate(0deg); 
-    }
-    100% {
-        transform: rotate(1440deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(1440deg);
+  }
 }
 
 /* 2. Style de base (L'image est prête mais immobile) */
 .image {
-    max-width: 20%;
-    height: 20;
-    display: block;
-    margin: 20px auto;
-    transform: rotate(0deg); 
-    transition: transform 0.5s ease;
+  max-width: 20%;
+  height: 20;
+  display: block;
+  margin: 20px auto;
+  transform: rotate(0deg);
+  transition: transform 0.5s ease;
 }
 
 /* 3. La classe qui déclenche l'animation (ajoutée par JavaScript) */
 .image.is-visible {
-    animation-name: rotation-initiale; 
-    animation-duration: 2s; 
-    animation-iteration-count: 1; 
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: forwards; 
+  animation-name: rotation-initiale;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
 }
