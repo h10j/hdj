@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return; // Arrête l'exécution si la playlist n'est pas un JSON valide
     }
 
-    let currentVideoIndex = 0;
+    let currentVideoIndex = 1;
 
     function playNextVideo() {
         // Incrémenter l'index, puis revenir à 0 si c'est la fin du tableau
