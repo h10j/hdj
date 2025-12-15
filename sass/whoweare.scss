@@ -1,97 +1,123 @@
-$block-size: 150; //Change this value
+$block-size: 150;
+$block-size-mobile: 70;
 $scrollbar-size: 13;
 
 $grid-cell-height: ($block-size * 2) * 80 /100 + px;
 
 .grid {
-	display: grid;
-	width: 100%;
-	justify-content: center;
-	grid-auto-flow: dense;
-	grid-template-columns: repeat(auto-fit, $block-size + px);
-	grid-template-rows: repeat(
-		auto-fit,
-		minmax($grid-cell-height, $grid-cell-height)
-	);
-	grid-auto-rows: $grid-cell-height;
-	margin-bottom: ($block-size * 2) * 30 /100 + px;
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(auto-fit, $block-size + px);
+  grid-template-rows: repeat(
+    auto-fit,
+    minmax($grid-cell-height, $grid-cell-height)
+  );
+  grid-auto-rows: $grid-cell-height;
+  margin-bottom: ($block-size * 2) * 30 /100 + px;
 }
 
 .grid > * {
-	-webkit-clip-path: polygon(50% 0, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
-	clip-path: polygon(50% 0, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+  -webkit-clip-path: polygon(50% 0, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+  clip-path: polygon(50% 0, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
 }
 .block {
-	position: relative;
-	height: 2 * $block-size + px;
-	grid-column: 2 span;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  position: relative;
+  height: 2 * $block-size + px;
+  grid-column: 2 span;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dj-photo-hex {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    -webkit-clip-path: inherit; 
-    clip-path: inherit;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-clip-path: inherit;
+  clip-path: inherit;
 }
 
 .dj-info-hex {
-    // Texte affiché au centre de l'hexagone
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-    // Centrage du texte
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
+  // Texte affiché au centre de l'hexagone
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  // Centrage du texte
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
 
-    // Hériter de la découpe pour l'arrière-plan du texte
-    -webkit-clip-path: inherit; 
-    clip-path: inherit;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
-    transition: opacity 0.3s ease;
+  // Hériter de la découpe pour l'arrière-plan du texte
+  -webkit-clip-path: inherit;
+  clip-path: inherit;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+  transition: opacity 0.3s ease;
 }
 
 .dj-info-hex h3 {
-    margin: 0;
-    font-size: 1.2em;
-    color: rgb(255, 255, 255);
-}
-
-@media screen and (max-width: #{3 * $block-size - 1 + $scrollbar-size}px) {
-.grid {
-        grid-template-columns: repeat(auto-fit, $block-size + px);
-		grid-template-rows: ($block-size * 2) + px;
-		grid-auto-rows: ($block-size * 2) + px;
-		margin-bottom: ($block-size * 2) * 30 /100 + px;
-    }
-    .block {
-        height: auto; 
-        -webkit-clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
-        clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
-    }
+  margin: 0;
+  font-size: 1.2em;
+  color: rgb(255, 255, 255);
 }
 
 @for $i from ($block-size * 3) through 2000 {
-	@if ($i % $block-size == 0) {
-		$counter: $i / $block-size;
-		@media screen and (min-width: #{($counter) * $block-size + $scrollbar-size}px) and (max-width: #{($counter + 1) * $block-size - 1 + $scrollbar-size}px) {
-			$first: floor($counter / 2) + 1;
-			.block:nth-child(#{$first}),
-			.block:nth-child(#{$counter - 1}n + #{$counter + $first - 1}) {
-				grid-column: 2 / span 2;
-			}
-		}
-	}
+  @if ($i % $block-size == 0) {
+    $counter: $i / $block-size;
+    @media screen and (min-width: #{($counter) * $block-size + $scrollbar-size}px) and (max-width: #{($counter + 1) * $block-size - 1 + $scrollbar-size}px) {
+      $first: floor($counter / 2) + 1;
+      .block:nth-child(#{$first}),
+      .block:nth-child(#{$counter - 1}n + #{$counter + $first - 1}) {
+        grid-column: 2 / span 2;
+      }
+    }
+  }
 }
 
+@media screen and (max-width: 992px) {
+  $grid-cell-height: ($block-size-mobile * 2) * 80 /100 + px;
+
+  .grid {
+    display: grid;
+    width: 100%;
+    justify-content: center;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fit, $block-size-mobile + px);
+    grid-template-rows: repeat(
+      auto-fit,
+      minmax($grid-cell-height, $grid-cell-height)
+    );
+    grid-auto-rows: $grid-cell-height;
+    margin-bottom: ($block-size-mobile * 2) * 30 /100 + px;
+  }
+
+  .block {
+    position: relative;
+    height: 2 * $block-size-mobile + px;
+    grid-column: 2 span;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @for $i from ($block-size-mobile * 3) through 2000 {
+    @if ($i % $block-size-mobile == 0) {
+      $counter: $i / $block-size-mobile;
+      @media screen and (min-width: #{($counter) * $block-size-mobile + $scrollbar-size}px) and (max-width: #{($counter + 1) * $block-size-mobile - 1 + $scrollbar-size}px) {
+        $first: floor($counter / 2) + 1;
+        .block:nth-child(#{$first}),
+        .block:nth-child(#{$counter - 1}n + #{$counter + $first - 1}) {
+          grid-column: 2 / span 2;
+        }
+      }
+    }
+  }
+}

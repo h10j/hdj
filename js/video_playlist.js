@@ -31,10 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 3. Demander le chargement
         tempVideo.load();
-        
-        console.log(`[Préchargement] Démarrage du préchargement de : ${preloadedVideoSrc}`);
-        
-        // Nous n'avons pas besoin d'ajouter tempVideo au DOM, il fait son travail en mémoire.
     }
     
     function playNextVideo() {
@@ -45,10 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // 🔑 Utiliser la source qui a déjà été téléchargée (ou est en cours)
         video.src = nextVideoSrc; 
         
-        video.play().catch(error => {
-            console.error("Erreur lors du lancement de la vidéo:", error);
-        });
-
         // 🔑 Immédiatement après avoir lancé la vidéo, on précharge la suivante
         preloadNextVideo();
     }
